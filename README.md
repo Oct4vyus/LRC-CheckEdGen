@@ -1,4 +1,4 @@
-# 🎵 LRC-CheckEdGen (v1.1.0)
+#  LRC-CheckEdGen (v1.1.0)
 
 **LRC-CheckEdGen** es una solución integral y automatizada para la auditoría de bibliotecas musicales y la generación inteligente de letras sincronizadas (`.lrc`) utilizando modelos de inteligencia artificial (Whisper / UVR).
 
