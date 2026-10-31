@@ -2,7 +2,30 @@
 
 **LRC-CheckEdGen** es una solución integral y automatizada para la auditoría de bibliotecas musicales y la generación inteligente de letras sincronizadas (`.lrc`) utilizando modelos de inteligencia artificial (Whisper / UVR).
 
-Esta versión **v1.1.0** representa la evolución y consolidación unificada de lo que anteriormente fue **LRC-Checker v7.5.1**, integrando de forma nativa la gestión de reportes, colas persistentes en SQLite y la comunicación interna con el motor de transcripción **LRCGen**.
+Esta versi��n v1.1.0 consolida la evoluci��n de LRC-Checker v6.2.2, integrando la orquestaci��n en colas persistentes SQLite y el motor de transcripci��n LRCGen.
+?? Filosof��a y Flujo de Trabajo Modular
+
+El proyecto permite alternar entre dos modos de trabajo seg��n la necesidad del servidor:
+
+    ? Modo Generaci��n e Inteligencia Artificial (v1.1.0 �� Suite LRC-CheckEdGen):
+        Objetivo: Procesar y generar autom��ticamente las letras de canciones que plugins externos (como Jellyfin) no logran encontrar.
+        Estructura: Se despliegan los 2 contenedores de Docker Hub ( y ). Genera los archivos e integra la voz separada mediante UVR5 y Whisper.
+
+    ?? Modo Auditor��a y Mantenimiento Ligero (v6.2.2 �� LRC-Checker Standalone):
+        Objetivo: Mantener una herramienta liviana de bajo consumo para cuantificar la biblioteca y realizar ediciones manuales.
+        Flujo Revertible: Una vez completada la generaci��n de las letras faltantes en la biblioteca, puedes apagar el stack pesado de IA y regresar a la versi��n v6.2.2. As�� conservas el control y la edici��n manual en un ��nico contenedor hiper-liviano sin consumo innecesario de RAM/CPU/GPU.
+
+?? Novedades en v1.1.0
+
+    Despliegue Directo desde Docker Hub: Ambas im��genes se descargan preconstruidas ( y ).
+    Tarjeta Azul de Avance en Tiempo Real: Visualizaci��n en vivo del progreso de generaci��n (pista X/Y, en cola, completado o error).
+    Navegaci��n Interactiva: Al pulsar la tarjeta azul, la interfaz hace scroll directo al ��lbum en proceso.
+    Cola Persistente SQLite: Manejo secuencial idempotente ().
+    Publicaci��n Autom��tica: Publica directamente idiomas en espa?ol () e ingl��s ().
+    Protecci��n de Archivos: No sobrescribe archivos preexistentes.
+    Limpieza de Temporales por UUID: Borrado seguro de cargas compartidas en .
+
+
 
 ---
 
@@ -18,28 +41,13 @@ Esta versión **v1.1.0** representa la evolución y consolidación unificada de 
 
 ---
 
-## 🏗️ Arquitectura del Sistema
+## 🏗�?Arquitectura del Sistema
 
 ```text
 [ Navegador Web / LAN ]
-          │
-          ▼ (HTTP :9080)
-┌─────────────────────────────────────────────────────────────┐
-│ contenedor: lrc-checkedgen (v1.1.0)                         │
-│ ─ Orquestador y Servidor Web (Puerto interno 8080)          │
-│ ─ Cola SQLite en /reports/lrcgen_queue.sqlite3              │
-└──────────────────────────────┬──────────────────────────────┘
-                               │ (HTTP interno en lrc_network)
-                               ▼
-┌─────────────────────────────────────────────────────────────┐
-│ contenedor: lrcgen-whisper                                  │
-│ ─ Motor de Transcripción Whisper + Separación UVR           │
-│ ─ Puerto interno 8000                                       │
-└──────────────────────────────┴──────────────────────────────┘
-                               │
-            ┌──────────────────┴──────────────────┐
-            ▼                                     ▼
- [ Bibliotecas de Música ]              [ Directorios /reports y /uploads ]
+          �?          �?(HTTP :9080)
+┌─────────────────────────────────────────────────────────────�?�?contenedor: lrc-checkedgen (v1.1.0)                         �?�?─ Orquestador y Servidor Web (Puerto interno 8080)          �?�?─ Cola SQLite en /reports/lrcgen_queue.sqlite3              �?└──────────────────────────────┬──────────────────────────────�?                               �?(HTTP interno en lrc_network)
+                               �?┌─────────────────────────────────────────────────────────────�?�?contenedor: lrcgen-whisper                                  �?�?─ Motor de Transcripción Whisper + Separación UVR           �?�?─ Puerto interno 8000                                       �?└──────────────────────────────┴──────────────────────────────�?                               �?            ┌──────────────────┴──────────────────�?            �?                                    �? [ Bibliotecas de Música ]              [ Directorios /reports y /uploads ]
  (Montaje rw compartido)               (Persistencia y limpieza de temporales)
 ```
 
@@ -54,7 +62,7 @@ Esta versión **v1.1.0** representa la evolución y consolidación unificada de 
 
 ---
 
-## 🛠️ Requisitos Previos
+## 🛠�?Requisitos Previos
 
 1. **Docker Engine** y **Docker Compose** (o Portainer sobre OpenMediaVault / Linux).
 2. **Red Docker Externa:** Debe crearse una red compartida llamada `lrc_network` para permitir la comunicación privada DNS entre contenedores:
@@ -164,7 +172,7 @@ networks:
 
 ---
 
-## 🖥️ Despliegue en Portainer / OMV (Paso a Paso)
+## 🖥�?Despliegue en Portainer / OMV (Paso a Paso)
 
 1. **Crear la red Docker externa:**
    En la consola SSH de tu servidor OMV:
