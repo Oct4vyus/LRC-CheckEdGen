@@ -19,28 +19,13 @@ Esta versión **v1.1.0** representa la evolución y consolidación unificada de 
 
 ---
 
-## 🏗️ Arquitectura del Sistema
+## 🏗�?Arquitectura del Sistema
 
 ```text
 [ Navegador Web / LAN ]
-          │
-          ▼ (HTTP :9080)
-┌─────────────────────────────────────────────────────────────┐
-│ contenedor: lrc-checkedgen (v1.1.0)                         │
-│ ─ Orquestador y Servidor Web (Puerto interno 8080)          │
-│ ─ Cola SQLite en /reports/lrcgen_queue.sqlite3              │
-└──────────────────────────────┬──────────────────────────────┘
-                               │ (HTTP interno en lrc_network)
-                               ▼
-┌─────────────────────────────────────────────────────────────┐
-│ contenedor: lrcgen-whisper                                  │
-│ ─ Motor de Transcripción Whisper + Separación UVR           │
-│ ─ Puerto interno 8000                                       │
-└──────────────────────────────┴──────────────────────────────┘
-                               │
-            ┌──────────────────┴──────────────────┐
-            ▼                                     ▼
- [ Bibliotecas de Música ]              [ Directorios /reports y /uploads ]
+          �?          �?(HTTP :9080)
+┌─────────────────────────────────────────────────────────────�?�?contenedor: lrc-checkedgen (v1.1.0)                         �?�?─ Orquestador y Servidor Web (Puerto interno 8080)          �?�?─ Cola SQLite en /reports/lrcgen_queue.sqlite3              �?└──────────────────────────────┬──────────────────────────────�?                               �?(HTTP interno en lrc_network)
+                               �?┌─────────────────────────────────────────────────────────────�?�?contenedor: lrcgen-whisper                                  �?�?─ Motor de Transcripción Whisper + Separación UVR           �?�?─ Puerto interno 8000                                       �?└──────────────────────────────┴──────────────────────────────�?                               �?            ┌──────────────────┴──────────────────�?            �?                                    �? [ Bibliotecas de Música ]              [ Directorios /reports y /uploads ]
  (Montaje rw compartido)               (Persistencia y limpieza de temporales)
 ```
 
@@ -55,7 +40,7 @@ Esta versión **v1.1.0** representa la evolución y consolidación unificada de 
 
 ---
 
-## 🛠️ Requisitos Previos
+## 🛠�?Requisitos Previos
 
 1. **Docker Engine** y **Docker Compose** (o Portainer sobre OpenMediaVault / Linux).
 2. **Red Docker Externa:** Debe crearse una red compartida llamada `lrc_network` para permitir la comunicación privada DNS entre contenedores:
@@ -81,7 +66,7 @@ version: '3.8'
 services:
   # Contenedor 1: LRC-CheckEdGen (Checker + Orquestador)
   lrc-checkedgen:
-    image: tu-usuario/lrc-checkedgen:1.1.0
+    image: oct4vyus/lrc-checkedgen:1.1.0
     container_name: lrc-checkedgen
     restart: unless-stopped
     networks:
@@ -117,7 +102,7 @@ services:
 
   # Contenedor 2: LRCGen (Whisper + UVR)
   lrcgen:
-    image: tu-usuario/lrcgen:latest
+    image: oct4vyus/lrcgen-container:1.0.0
     container_name: lrcgen-whisper
     restart: unless-stopped
     networks:
@@ -165,7 +150,7 @@ networks:
 
 ---
 
-## 🖥️ Despliegue en Portainer / OMV (Paso a Paso)
+## 🖥�?Despliegue en Portainer / OMV (Paso a Paso)
 
 1. **Crear la red Docker externa:**
    En la consola SSH de tu servidor OMV:
