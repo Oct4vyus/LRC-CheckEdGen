@@ -29,11 +29,11 @@ El proyecto permite alternar entre dos modos de trabajo seg��n la necesidad del 
 
 ---
 
-## 🚀 Novedades y Mejoras en v1.1.0
+## ?? Novedades y Mejoras en v1.1.0
 
 - **Despliegue Directo desde Docker Hub:** Las imágenes de ambos contenedores no se construyen en local. Se descargarán preconstruidas directamente desde Docker Hub.
 - **Tarjeta de Seguimiento en Tiempo Real:** Interfaz enriquecida con una tarjeta interactiva (azul) que muestra el progreso del trabajo activo de LRCGen (en cola, procesando pista X/Y, finalizado o con error).
-- **Navegación Interactiva al Álbum:** Al hacer clic en la tarjeta de estado, el reporte desplaza automáticamente la vista y enfoca el encabezado del álbum correspondiente.
+- **Navegación Interactiva al ?lbum:** Al hacer clic en la tarjeta de estado, el reporte desplaza automáticamente la vista y enfoca el encabezado del álbum correspondiente.
 - **Cola Persistente e Idempotente:** Orquestación secuencial respaldada por SQLite (`lrcgen_queue.sqlite3`), garantizando resistencia a reinicios y prevención de trabajos duplicados.
 - **Publicación Inteligente por Idioma:** Publicación automática de archivos `.lrc` para contenidos en español (`es`) e inglés (`en`). Idiomas adicionales se marcan para revisión manual.
 - **Protección Antisobrescritura:** Los archivos `.lrc` existentes en la biblioteca musical nunca son sobrescritos.
@@ -41,13 +41,13 @@ El proyecto permite alternar entre dos modos de trabajo seg��n la necesidad del 
 
 ---
 
-## 🏗�?Arquitectura del Sistema
+## ??�?Arquitectura del Sistema
 
 ```text
 [ Navegador Web / LAN ]
-          �?          �?(HTTP :9080)
-┌─────────────────────────────────────────────────────────────�?�?contenedor: lrc-checkedgen (v1.1.0)                         �?�?─ Orquestador y Servidor Web (Puerto interno 8080)          �?�?─ Cola SQLite en /reports/lrcgen_queue.sqlite3              �?└──────────────────────────────┬──────────────────────────────�?                               �?(HTTP interno en lrc_network)
-                               �?┌─────────────────────────────────────────────────────────────�?�?contenedor: lrcgen-whisper                                  �?�?─ Motor de Transcripción Whisper + Separación UVR           �?�?─ Puerto interno 8000                                       �?└──────────────────────────────┴──────────────────────────────�?                               �?            ┌──────────────────┴──────────────────�?            �?                                    �? [ Bibliotecas de Música ]              [ Directorios /reports y /uploads ]
+          ??          ??(HTTP :9080)
+?��??�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�????contenedor: lrc-checkedgen (v1.1.0)                         ?????� Orquestador y Servidor Web (Puerto interno 8080)          ?????� Cola SQLite en /reports/lrcgen_queue.sqlite3              ???��??�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?��??�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�??                               ??(HTTP interno en lrc_network)
+                               ???��??�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�????contenedor: lrcgen-whisper                                  ?????� Motor de Transcripción Whisper + Separación UVR           ?????� Puerto interno 8000                                       ???��??�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?��??�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�??                               ??            ?��??�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?��??�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�?�??            ??                                    ?? [ Bibliotecas de Música ]              [ Directorios /reports y /uploads ]
  (Montaje rw compartido)               (Persistencia y limpieza de temporales)
 ```
 
@@ -62,7 +62,7 @@ El proyecto permite alternar entre dos modos de trabajo seg��n la necesidad del 
 
 ---
 
-## 🛠�?Requisitos Previos
+## ??�?Requisitos Previos
 
 1. **Docker Engine** y **Docker Compose** (o Portainer sobre OpenMediaVault / Linux).
 2. **Red Docker Externa:** Debe crearse una red compartida llamada `lrc_network` para permitir la comunicación privada DNS entre contenedores:
@@ -76,7 +76,7 @@ El proyecto permite alternar entre dos modos de trabajo seg��n la necesidad del 
 
 ---
 
-## 📦 Despliegue con Docker Compose (Docker Hub)
+## ?�� Despliegue con Docker Compose (Docker Hub)
 
 Ambas imágenes se obtienen directamente de **Docker Hub**. No se requiere Dockerfile ni compilación local.
 
@@ -159,7 +159,7 @@ networks:
 
 ---
 
-## ⚙️ Variables de Entorno Clave
+## ?��? Variables de Entorno Clave
 
 | Variable | Descripción | Valor por Defecto / Ejemplo |
 | :--- | :--- | :--- |
@@ -172,7 +172,7 @@ networks:
 
 ---
 
-## 🖥�?Despliegue en Portainer / OMV (Paso a Paso)
+## ?���?Despliegue en Portainer / OMV (Paso a Paso)
 
 1. **Crear la red Docker externa:**
    En la consola SSH de tu servidor OMV:
@@ -198,7 +198,7 @@ networks:
 
 ---
 
-## 📖 Guía de Uso
+## ?? Guía de Uso
 
 1. Accede desde tu navegador a la dirección configurada en `SERVER_URL` (ej. `http://IP-DE-TU-SERVIDOR:9080`).
 2. El sistema mostrará el reporte interactivo de tu biblioteca de música.
@@ -209,7 +209,7 @@ networks:
 
 ---
 
-## 🔍 Solución de Problemas Frecuentes
+## ?? Solución de Problemas Frecuentes
 
 - **El reporte indica que LRCGen no está disponible:**
   - Verifica que `lrcgen-whisper` esté en ejecución (`docker ps`).
@@ -222,7 +222,7 @@ networks:
 
 ---
 
-## 📜 Licencia y Créditos
+## ?? Licencia y Créditos
 
 Desarrollado para la auditoría, sincronización y automatización de bibliotecas musicales.
 - **Motor de Transcripción:** OpenAI Whisper & UVR5.
