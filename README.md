@@ -1,4 +1,4 @@
-<img src="Logo/lrc-checkEdGen-Logo2.png" width="24" alt="Logo"> LRC-CheckEdGen (v1.1.0) #  LRC-CheckEdGen (v1.1.0)
+<img src="Logo/lrc-checkEdGen-Logo2.png" width="35" alt="Logo"> LRC-CheckEdGen (v1.1.0) #  LRC-CheckEdGen (v1.1.0)
 
 **LRC-CheckEdGen** es una solución integral y automatizada para la auditoría de bibliotecas musicales y la generación inteligente de letras sincronizadas (`.lrc`) utilizando modelos de inteligencia artificial (Whisper / UVR).
 
