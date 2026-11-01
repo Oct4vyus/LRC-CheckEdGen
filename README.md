@@ -9,7 +9,7 @@ Esta versión **v1.1.0** representa la evolución y consolidación unificada de 
 ## 🚀 Novedades y Mejoras en v1.1.0
 
 - **Evolución desde LRC-Checker v6.2.1:** Consolidación de la base de auditoría v6.2.1 con la nueva arquitectura integrada de generación automatizada.
-- **Despliegue Directo desde Docker Hub:** Las imágenes de ambos contenedores no se construyen en local. Se descargarán preconstruidas directamente desde Docker Hub.
+- **Despliegue Directo desde Docker Hub:** Las imágenes de ambos contenedores no se construyen en local. Se descargarán preconstruidas directamente desde Docker Hub (`oct4vyus/lrc-checkedgen:1.1.0` y `oct4vyus/lrcgen-container:1.0.0`).
 - **Tarjeta de Seguimiento en Tiempo Real:** Interfaz enriquecida con una tarjeta interactiva (azul) que muestra el progreso del trabajo activo de LRCGen (en cola, procesando pista X/Y, finalizado o con error).
 - **Navegación Interactiva al Álbum:** Al hacer clic en la tarjeta de estado, el reporte desplaza automáticamente la vista y enfoca el encabezado del álbum correspondiente.
 - **Cola Persistente e Idempotente:** Orquestación secuencial respaldada por SQLite (`lrcgen_queue.sqlite3`), garantizando resistencia a reinicios y prevención de trabajos duplicados.
@@ -19,13 +19,28 @@ Esta versión **v1.1.0** representa la evolución y consolidación unificada de 
 
 ---
 
-## 🏗�?Arquitectura del Sistema
+## 🏗️ Arquitectura del Sistema
 
 ```text
 [ Navegador Web / LAN ]
-          �?          �?(HTTP :9080)
-┌─────────────────────────────────────────────────────────────�?�?contenedor: lrc-checkedgen (v1.1.0)                         �?�?─ Orquestador y Servidor Web (Puerto interno 8080)          �?�?─ Cola SQLite en /reports/lrcgen_queue.sqlite3              �?└──────────────────────────────┬──────────────────────────────�?                               �?(HTTP interno en lrc_network)
-                               �?┌─────────────────────────────────────────────────────────────�?�?contenedor: lrcgen-whisper                                  �?�?─ Motor de Transcripción Whisper + Separación UVR           �?�?─ Puerto interno 8000                                       �?└──────────────────────────────┴──────────────────────────────�?                               �?            ┌──────────────────┴──────────────────�?            �?                                    �? [ Bibliotecas de Música ]              [ Directorios /reports y /uploads ]
+          │
+          ▼ (HTTP :9080)
+┌─────────────────────────────────────────────────────────────┐
+│ contenedor: lrc-checkedgen (v1.1.0)                         │
+│ ─ Orquestador y Servidor Web (Puerto interno 8080)          │
+│ ─ Cola SQLite en /reports/lrcgen_queue.sqlite3              │
+└──────────────────────────────┬──────────────────────────────┘
+                               │ (HTTP interno en lrc_network)
+                               ▼
+┌─────────────────────────────────────────────────────────────┐
+│ contenedor: lrcgen-whisper                                  │
+│ ─ Motor de Transcripción Whisper + Separación UVR           │
+│ ─ Puerto interno 8000                                       │
+└──────────────────────────────┴──────────────────────────────┘
+                               │
+            ┌──────────────────┴──────────────────┐
+            ▼                                     ▼
+ [ Bibliotecas de Música ]              [ Directorios /reports y /uploads ]
  (Montaje rw compartido)               (Persistencia y limpieza de temporales)
 ```
 
@@ -40,7 +55,7 @@ Esta versión **v1.1.0** representa la evolución y consolidación unificada de 
 
 ---
 
-## 🛠�?Requisitos Previos
+## 🛠️ Requisitos Previos
 
 1. **Docker Engine** y **Docker Compose** (o Portainer sobre OpenMediaVault / Linux).
 2. **Red Docker Externa:** Debe crearse una red compartida llamada `lrc_network` para permitir la comunicación privada DNS entre contenedores:
@@ -150,7 +165,7 @@ networks:
 
 ---
 
-## 🖥�?Despliegue en Portainer / OMV (Paso a Paso)
+## 🖥️ Despliegue en Portainer / OMV (Paso a Paso)
 
 1. **Crear la red Docker externa:**
    En la consola SSH de tu servidor OMV:
@@ -165,7 +180,7 @@ networks:
    ```
    *O desde la interfaz web de Portainer:*
    - Ve a **Stacks -> Add stack** (o edita el Stack existente).
-   - Copia el bloque Compose con los nombres de imagen de Docker Hub (`tu-usuario/lrc-checkedgen:1.1.0` y `tu-usuario/lrcgen:latest`).
+   - Copia el bloque Compose con los nombres de imagen de Docker Hub (`oct4vyus/lrc-checkedgen:1.1.0` y `oct4vyus/lrcgen-container:1.0.0`).
    - Activa la casilla **Re-pull image and update** y presiona **Deploy the stack**.
 
 3. **Verificación de estado de los contenedores:**
