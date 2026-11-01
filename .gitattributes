@@ -1,0 +1,9 @@
+# Forzar salto de línea Linux (LF) para todos los archivos de texto
+* text=auto eol=lf
+
+# Garantizar que scripts y archivos Docker nunca se conviertan a CRLF
+*.sh text eol=lf
+*.py text eol=lf
+*.yml text eol=lf
+*.md text eol=lf
+Dockerfile text eol=lf

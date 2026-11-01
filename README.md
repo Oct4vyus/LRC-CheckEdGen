@@ -1,53 +1,46 @@
-#  LRC-CheckEdGen (v1.1.0)
+# ğŸµ LRC-CheckEdGen (v1.1.0)
 
 **LRC-CheckEdGen** es una soluciÃ³n integral y automatizada para la auditorÃ­a de bibliotecas musicales y la generaciÃ³n inteligente de letras sincronizadas (`.lrc`) utilizando modelos de inteligencia artificial (Whisper / UVR).
 
-Esta versi¨®n v1.1.0 consolida la evoluci¨®n de LRC-Checker v6.2.2, integrando la orquestaci¨®n en colas persistentes SQLite y el motor de transcripci¨®n LRCGen.
-?? Filosof¨ªa y Flujo de Trabajo Modular
-
-El proyecto permite alternar entre dos modos de trabajo seg¨²n la necesidad del servidor:
-
-    ? Modo Generaci¨®n e Inteligencia Artificial (v1.1.0 ¡ª Suite LRC-CheckEdGen):
-        Objetivo: Procesar y generar autom¨¢ticamente las letras de canciones que plugins externos (como Jellyfin) no logran encontrar.
-        Estructura: Se despliegan los 2 contenedores de Docker Hub ( y ). Genera los archivos e integra la voz separada mediante UVR5 y Whisper.
-
-    ?? Modo Auditor¨ªa y Mantenimiento Ligero (v6.2.2 ¡ª LRC-Checker Standalone):
-        Objetivo: Mantener una herramienta liviana de bajo consumo para cuantificar la biblioteca y realizar ediciones manuales.
-        Flujo Revertible: Una vez completada la generaci¨®n de las letras faltantes en la biblioteca, puedes apagar el stack pesado de IA y regresar a la versi¨®n v6.2.2. As¨ª conservas el control y la edici¨®n manual en un ¨²nico contenedor hiper-liviano sin consumo innecesario de RAM/CPU/GPU.
-
-?? Novedades en v1.1.0
-
-    Despliegue Directo desde Docker Hub: Ambas im¨¢genes se descargan preconstruidas ( y ).
-    Tarjeta Azul de Avance en Tiempo Real: Visualizaci¨®n en vivo del progreso de generaci¨®n (pista X/Y, en cola, completado o error).
-    Navegaci¨®n Interactiva: Al pulsar la tarjeta azul, la interfaz hace scroll directo al ¨¢lbum en proceso.
-    Cola Persistente SQLite: Manejo secuencial idempotente ().
-    Publicaci¨®n Autom¨¢tica: Publica directamente idiomas en espa?ol () e ingl¨¦s ().
-    Protecci¨®n de Archivos: No sobrescribe archivos preexistentes.
-    Limpieza de Temporales por UUID: Borrado seguro de cargas compartidas en .
-
-
+Esta versiÃ³n **v1.1.0** representa la evoluciÃ³n y consolidaciÃ³n unificada de lo que anteriormente fue **LRC-Checker v6.2.1**, integrando de forma nativa la gestiÃ³n de reportes, colas persistentes en SQLite y la comunicaciÃ³n interna con el motor de transcripciÃ³n **LRCGen**.
 
 ---
 
-## ?? Novedades y Mejoras en v1.1.0
+## ğŸš€ Novedades y Mejoras en v1.1.0
 
+- **EvoluciÃ³n desde LRC-Checker v6.2.1:** ConsolidaciÃ³n de la base de auditorÃ­a v6.2.1 con la nueva arquitectura integrada de generaciÃ³n automatizada.
 - **Despliegue Directo desde Docker Hub:** Las imÃ¡genes de ambos contenedores no se construyen en local. Se descargarÃ¡n preconstruidas directamente desde Docker Hub.
 - **Tarjeta de Seguimiento en Tiempo Real:** Interfaz enriquecida con una tarjeta interactiva (azul) que muestra el progreso del trabajo activo de LRCGen (en cola, procesando pista X/Y, finalizado o con error).
-- **NavegaciÃ³n Interactiva al ?lbum:** Al hacer clic en la tarjeta de estado, el reporte desplaza automÃ¡ticamente la vista y enfoca el encabezado del Ã¡lbum correspondiente.
+- **NavegaciÃ³n Interactiva al Ãlbum:** Al hacer clic en la tarjeta de estado, el reporte desplaza automÃ¡ticamente la vista y enfoca el encabezado del Ã¡lbum correspondiente.
 - **Cola Persistente e Idempotente:** OrquestaciÃ³n secuencial respaldada por SQLite (`lrcgen_queue.sqlite3`), garantizando resistencia a reinicios y prevenciÃ³n de trabajos duplicados.
-- **PublicaciÃ³n Inteligente por Idioma:** PublicaciÃ³n automÃ¡tica de archivos `.lrc` para contenidos en espaÃ±ol (`es`) e inglÃ©s (`en`). Idiomas adicionales se marcan para revisiÃ³n manual.
+- **PublicaciÃ³n Inteligente por Idioma:** PublicaciÃ³n automÃ¡tica de archivos `.lrc` para contenidos en espaÃ±ol (`es`) e inglÃ©s (`en`). Idiomas adicionales se marcan para revisiÃ³n manual (`LRC-GEN`).
 - **ProtecciÃ³n Antisobrescritura:** Los archivos `.lrc` existentes en la biblioteca musical nunca son sobrescritos.
 - **Limpieza AutomÃ¡tica por UUID:** EliminaciÃ³n segura de cargas temporales e intermediarios de aislamiento de voz (UVR) vinculados al UUID Ãºnico del trabajo activo.
 
 ---
 
-## ??ï¸?Arquitectura del Sistema
+## ğŸ—ï¸ Arquitectura del Sistema
 
 ```text
 [ Navegador Web / LAN ]
-          ??          ??(HTTP :9080)
-?Œâ??€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€????contenedor: lrc-checkedgen (v1.1.0)                         ?????€ Orquestador y Servidor Web (Puerto interno 8080)          ?????€ Cola SQLite en /reports/lrcgen_queue.sqlite3              ???”â??€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?¬â??€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€??                               ??(HTTP interno en lrc_network)
-                               ???Œâ??€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€????contenedor: lrcgen-whisper                                  ?????€ Motor de TranscripciÃ³n Whisper + SeparaciÃ³n UVR           ?????€ Puerto interno 8000                                       ???”â??€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?´â??€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€??                               ??            ?Œâ??€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?´â??€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€??            ??                                    ?? [ Bibliotecas de MÃºsica ]              [ Directorios /reports y /uploads ]
+          â”‚
+          â–¼ (HTTP :9080)
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ contenedor: lrc-checkedgen (v1.1.0)                         â”‚
+â”‚ â”€ Orquestador y Servidor Web (Puerto interno 8080)          â”‚
+â”‚ â”€ Cola SQLite en /reports/lrcgen_queue.sqlite3              â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                               â”‚ (HTTP interno en lrc_network)
+                               â–¼
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚ contenedor: lrcgen-whisper                                  â”‚
+â”‚ â”€ Motor de TranscripciÃ³n Whisper + SeparaciÃ³n UVR           â”‚
+â”‚ â”€ Puerto interno 8000                                       â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                               â”‚
+            â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+            â–¼                                     â–¼
+ [ Bibliotecas de MÃºsica ]              [ Directorios /reports y /uploads ]
  (Montaje rw compartido)               (Persistencia y limpieza de temporales)
 ```
 
@@ -62,7 +55,7 @@ El proyecto permite alternar entre dos modos de trabajo seg¨²n la necesidad del 
 
 ---
 
-## ??ï¸?Requisitos Previos
+## ğŸ› ï¸ Requisitos Previos
 
 1. **Docker Engine** y **Docker Compose** (o Portainer sobre OpenMediaVault / Linux).
 2. **Red Docker Externa:** Debe crearse una red compartida llamada `lrc_network` para permitir la comunicaciÃ³n privada DNS entre contenedores:
@@ -76,7 +69,7 @@ El proyecto permite alternar entre dos modos de trabajo seg¨²n la necesidad del 
 
 ---
 
-## ?“¦ Despliegue con Docker Compose (Docker Hub)
+## ğŸ“¦ Despliegue con Docker Compose (Docker Hub)
 
 Ambas imÃ¡genes se obtienen directamente de **Docker Hub**. No se requiere Dockerfile ni compilaciÃ³n local.
 
@@ -159,7 +152,7 @@ networks:
 
 ---
 
-## ?™ï? Variables de Entorno Clave
+## âš™ï¸ Variables de Entorno Clave
 
 | Variable | DescripciÃ³n | Valor por Defecto / Ejemplo |
 | :--- | :--- | :--- |
@@ -172,7 +165,7 @@ networks:
 
 ---
 
-## ?–¥ï¸?Despliegue en Portainer / OMV (Paso a Paso)
+## ğŸ–¥ï¸ Despliegue en Portainer / OMV (Paso a Paso)
 
 1. **Crear la red Docker externa:**
    En la consola SSH de tu servidor OMV:
@@ -198,7 +191,7 @@ networks:
 
 ---
 
-## ?? GuÃ­a de Uso
+## ğŸ“– GuÃ­a de Uso
 
 1. Accede desde tu navegador a la direcciÃ³n configurada en `SERVER_URL` (ej. `http://IP-DE-TU-SERVIDOR:9080`).
 2. El sistema mostrarÃ¡ el reporte interactivo de tu biblioteca de mÃºsica.
@@ -209,7 +202,7 @@ networks:
 
 ---
 
-## ?? SoluciÃ³n de Problemas Frecuentes
+## ğŸ” SoluciÃ³n de Problemas Frecuentes
 
 - **El reporte indica que LRCGen no estÃ¡ disponible:**
   - Verifica que `lrcgen-whisper` estÃ© en ejecuciÃ³n (`docker ps`).
@@ -217,13 +210,14 @@ networks:
   - Verifica que la variable `LRCGEN_URL` apunte a `http://lrcgen-whisper:8000`.
 - **Error de permisos al guardar los `.lrc`:**
   - AsegÃºrate de que los montajes de tus volÃºmenes de mÃºsica tengan permisos de escritura (`:rw`).
-- **Incompatibilidad 503 en la cola SQLite:**
-  - Al migrar desde la versiÃ³n antigua 7.5.0, descarga la versiÃ³n `1.1.0` desde Docker Hub y recrea el contenedor conservando el directorio `/reports`.
+- **Incompatibilidad de la cola SQLite:**
+  - Al migrar desde versiones anteriores de LRC-Checker, descarga la versiÃ³n `1.1.0` desde Docker Hub y recrea el contenedor conservando el directorio `/reports`.
 
 ---
 
-## ?? Licencia y CrÃ©ditos
+## ğŸ“œ Licencia y CrÃ©ditos
 
 Desarrollado para la auditorÃ­a, sincronizaciÃ³n y automatizaciÃ³n de bibliotecas musicales.
-- **Motor de TranscripciÃ³n:** OpenAI Whisper & UVR5.
-- **OrquestaciÃ³n y AuditorÃ­a:** Proyecto LRC-CheckEdGen.
+- **Base de AuditorÃ­a:** Proyecto LRC-Checker (v6.2.1).
+- **Motor de TranscripciÃ³n:** OpenAI Whisper & UVR5 (LRCGen).
+- **OrquestaciÃ³n e IntegraciÃ³n:** Proyecto LRC-CheckEdGen (v1.1.0).
