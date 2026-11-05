@@ -81,7 +81,7 @@ version: '3.8'
 services:
   # Contenedor 1: LRC-CheckEdGen (Checker + Orquestador)
   lrc-checkedgen:
-    image: oct4vyus/lrc-checkedgen:1.1.0
+    image: oct4vyus/lrc-checkedgen:latest
     container_name: lrc-checkedgen
     restart: unless-stopped
     networks:
@@ -117,7 +117,7 @@ services:
 
   # Contenedor 2: LRCGen (Whisper + UVR)
   lrcgen:
-    image: oct4vyus/lrcgen-container:1.0.0
+    image: oct4vyus/lrcgen-container:latest
     container_name: lrcgen-whisper
     restart: unless-stopped
     networks:
