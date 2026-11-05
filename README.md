@@ -7,6 +7,7 @@
 [![Tamaño de imagen](https://img.shields.io/docker/image-size/oct4vyus/lrc-checker/latest?logo=docker&label=Tama%C3%B1o)](https://hub.docker.com/r/oct4vyus/lrc-checker)
 [![Último release](https://img.shields.io/github/v/release/Oct4vyus/lrc-checker-dockerhub?display_name=tag&label=Lanzamiento)](https://github.com/Oct4vyus/lrc-checker-dockerhub/releases/latest)
 [![Licencia](https://img.shields.io/github/license/Oct4vyus/lrc-checker-dockerhub?label=Licencia)](https://github.com/Oct4vyus/lrc-checker-dockerhub/blob/main/LICENSE)
+
 Esta versión **v1.1.0** representa la evolución y consolidación unificada de lo que anteriormente fue **LRC-Checker v6.2.1**, integrando de forma nativa la gestión de reportes, colas persistentes en SQLite y la comunicación interna con el motor de transcripción **LRCGen**.
 
 ---
