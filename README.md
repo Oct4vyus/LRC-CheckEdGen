@@ -1,9 +1,9 @@
 # 🎵 LRC-CheckEdGen
 
 [ 🇪🇸 Versión en Español ](#-español---lrc-checkedgen) | [ 🇬🇧 English Version ](#-english---lrc-checkedgen)
-https://img.shields.io/docker/v/oct4vyus/lrc-checkedgen?sort=semver&label=Imagen](https://hub.docker.com/r/oct4vyus/lrc-checkedgen/tags) https://img.shields.io/docker/pulls/oct4vyus/lrc-checkedgen?logo=docker&label=Descargas](https://hub.docker.com/r/oct4vyus/lrc-checkedgen) https://img.shields.io/docker/image-size/oct4vyus/lrc-checkedgen/latest?logo=docker&label=Tama?o](https://hub.docker.com/r/oct4vyus/lrc-checkedgen) https://img.shields.io/github/v/release/Oct4vyus/LRC-CheckEdGen?display_name=tag&label=Lanzamiento](https://github.com/Oct4vyus/LRC-CheckEdGen/releases/latest) https://img.shields.io/github/license/Oct4vyus/LRC-CheckEdGen?label=Licencia](https://github.com/Oct4vyus/LRC-CheckEdGen/blob/main/LICENSE)
----
 
+---
+https://img.shields.io/docker/v/oct4vyus/lrc-checkedgen?sort=semver&label=Imagen](https://hub.docker.com/r/oct4vyus/lrc-checkedgen/tags) https://img.shields.io/docker/pulls/oct4vyus/lrc-checkedgen?logo=docker&label=Descargas](https://hub.docker.com/r/oct4vyus/lrc-checkedgen) https://img.shields.io/docker/image-size/oct4vyus/lrc-checkedgen/latest?logo=docker&label=Tama?o](https://hub.docker.com/r/oct4vyus/lrc-checkedgen) https://img.shields.io/github/v/release/Oct4vyus/LRC-CheckEdGen?display_name=tag&label=Lanzamiento](https://github.com/Oct4vyus/LRC-CheckEdGen/releases/latest) https://img.shields.io/github/license/Oct4vyus/LRC-CheckEdGen?label=Licencia](https://github.com/Oct4vyus/LRC-CheckEdGen/blob/main/LICENSE)
 # 🇪🇸 Español - LRC-CheckEdGen
 
 **LRC-CheckEdGen** es una solución integral para la auditoría de bibliotecas musicales, gestión de reportes y generación inteligente de letras sincronizadas (.lrc) basada en inteligencia artificial (OpenAI Whisper + UVR5 Vocal Isolation).
@@ -38,7 +38,7 @@ LRC-CheckEdGen ha sido concebido para operar bajo un esquema de trabajo de dos f
 - **Publicación Garantizada:** Al seleccionar un idioma explícito, Whisper omite la autodetección y se desactiva el filtro restrictivo de idioma, publicando directamente el .lrc generado.
 - **Memoria de Selección:** Guarda la última preferencia en el navegador y registra el idioma activo en la tarjeta de seguimiento y en la tabla SQLite (jobs.language).
 
-### �?Optimizaciones de Rendimiento (v1.3.0)
+### �?Optimizaciones de Rendimiento (v1.3.0)
 - **Virtualización del Editor .lrc:** Renderizado unitario de filas, actualización focalizada de la línea activa, delegación de eventos y uso de content-visibility para fluidificar temas extensos.
 - **Streaming de Audio por Bloques:** El endpoint /archivo transmite el audio de forma fraccionada sin cargar la pista completa en RAM.
 - **Regeneración de Reportes Agrupada:** Pospone y agrupa la reconstrucción de reportes HTML/JSON (~1.0 s por defecto con REPORT_REFRESH_DELAY_SEC) al realizar ediciones múltiples o firmas manuales.
@@ -49,18 +49,18 @@ LRC-CheckEdGen ha sido concebido para operar bajo un esquema de trabajo de dos f
 
 ---
 
-## 🏗�?Arquitectura del Sistema
+## 🏗�?Arquitectura del Sistema
 
 ```text
 [ Navegador Web / LAN ]
-          �?          �?(HTTP :9080)
-┌─────────────────────────────────────────────────────────────�?�?Contenedor: lrc-checkedgen (v1.3.0)                         �?�?─ Orquestador y Servidor Web (Puerto interno 8080)          �?�?─ Cola SQLite en /reports/lrcgen_queue.sqlite3              �?└──────────────────────────────┬──────────────────────────────�?                               �?(HTTP interno en lrc_network)
-                               �?┌─────────────────────────────────────────────────────────────�?�?Contenedor: lrcgen-whisper                                  �?�?─ Backend OpenAI Whisper + Separación Vocal UVR5            �?�?─ Puerto interno 8000                                       �?└──────────────────────────────┴──────────────────────────────�?                               �?            ┌──────────────────┴──────────────────�?            �?                                    �? [ Bibliotecas musicales (rw) ]        [ Directorios /reports y /uploads ]
+          �?          �?(HTTP :9080)
+┌─────────────────────────────────────────────────────────────�?�?Contenedor: lrc-checkedgen (v1.3.0)                         �?�?─ Orquestador y Servidor Web (Puerto interno 8080)          �?�?─ Cola SQLite en /reports/lrcgen_queue.sqlite3              �?└──────────────────────────────┬──────────────────────────────�?                               �?(HTTP interno en lrc_network)
+                               �?┌─────────────────────────────────────────────────────────────�?�?Contenedor: lrcgen-whisper                                  �?�?─ Backend OpenAI Whisper + Separación Vocal UVR5            �?�?─ Puerto interno 8000                                       �?└──────────────────────────────┴──────────────────────────────�?                               �?            ┌──────────────────┴──────────────────�?            �?                                    �? [ Bibliotecas musicales (rw) ]        [ Directorios /reports y /uploads ]
 ```
 
 ---
 
-## 🛠�?Requisitos y Despliegue
+## 🛠�?Requisitos y Despliegue
 
 ### 1. Preparar la Red Docker Externa
 ```bash
@@ -153,7 +153,7 @@ networks:
 
 ---
 
-## �?Solución de Problemas Frecuentes
+## �?Solución de Problemas Frecuentes
 
 - **Error de autodetección o letra en idioma incorrecto:**  
   En v1.3.0, selecciona explícitamente el idioma (es, en, pt, etc.) en el modal antes de enviar el álbum a generar.
@@ -199,7 +199,7 @@ LRC-CheckEdGen is designed to operate in a flexible two-stage workflow tailored 
 - **Guaranteed Publishing:** When an explicit language is chosen, Whisper bypasses autodetection and disables language restrictions, directly saving the generated .lrc.
 - **Preference Persistence:** Stores your last selection in the browser and logs the language in the progress card and SQLite database (jobs.language).
 
-### �?Performance Enhancements (v1.3.0)
+### �?Performance Enhancements (v1.3.0)
 - **Editor Virtualization:** Row-by-row rendering, active line targeted DOM updates, event delegation, and content-visibility for smooth navigation on long tracks.
 - **Audio Chunk Streaming:** The /archivo endpoint streams audio progressively without loading full files into system memory.
 - **Batched Report Regeneration:** Delays and batches HTML/JSON report updates (~1.0s default via REPORT_REFRESH_DELAY_SEC) during rapid manual edits or sign-offs.
@@ -210,18 +210,18 @@ LRC-CheckEdGen is designed to operate in a flexible two-stage workflow tailored 
 
 ---
 
-## 🏗�?System Architecture
+## 🏗�?System Architecture
 
 ```text
 [ Web Browser / LAN ]
-          �?          �?(HTTP :9080)
-┌─────────────────────────────────────────────────────────────�?�?Container: lrc-checkedgen (v1.3.0)                          �?�?─ Orchestrator & Web Server (Internal Port 8080)            �?�?─ SQLite Queue at /reports/lrcgen_queue.sqlite3             �?└──────────────────────────────┬──────────────────────────────�?                               �?(Internal HTTP over lrc_network)
-                               �?┌─────────────────────────────────────────────────────────────�?�?Container: lrcgen-whisper                                   �?�?─ OpenAI Whisper Backend + UVR5 Vocal Isolation             �?�?─ Internal Port 8000                                        �?└──────────────────────────────┴──────────────────────────────�?                               �?            ┌──────────────────┴──────────────────�?            �?                                    �? [ Music Libraries (rw) ]              [ /reports & /uploads Directories ]
+          �?          �?(HTTP :9080)
+┌─────────────────────────────────────────────────────────────�?�?Container: lrc-checkedgen (v1.3.0)                          �?�?─ Orchestrator & Web Server (Internal Port 8080)            �?�?─ SQLite Queue at /reports/lrcgen_queue.sqlite3             �?└──────────────────────────────┬──────────────────────────────�?                               �?(Internal HTTP over lrc_network)
+                               �?┌─────────────────────────────────────────────────────────────�?�?Container: lrcgen-whisper                                   �?�?─ OpenAI Whisper Backend + UVR5 Vocal Isolation             �?�?─ Internal Port 8000                                        �?└──────────────────────────────┴──────────────────────────────�?                               �?            ┌──────────────────┴──────────────────�?            �?                                    �? [ Music Libraries (rw) ]              [ /reports & /uploads Directories ]
 ```
 
 ---
 
-## 🛠�?Requirements & Deployment
+## 🛠�?Requirements & Deployment
 
 ### 1. Create External Docker Network
 ```bash
@@ -314,7 +314,7 @@ networks:
 
 ---
 
-## �?Troubleshooting
+## �?Troubleshooting
 
 - **Language autodetection errors or wrong language output:**  
   In v1.3.0, explicitly select the album language (es, en, pt, etc.) in the modal dialog before starting generation.
