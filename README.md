@@ -2,6 +2,8 @@
 
 **LRC-CheckEdGen** es una solución integral y automatizada para la auditoría de bibliotecas musicales y la generación inteligente de letras sincronizadas (`.lrc`) utilizando modelos de inteligencia artificial (Whisper / UVR).
 
+https://img.shields.io/docker/v/oct4vyus/lrc-checkedgen?sort=semver&label=Imagen](https://hub.docker.com/r/oct4vyus/lrc-checkedgen/tags) https://img.shields.io/docker/pulls/oct4vyus/lrc-checkedgen?logo=docker&label=Descargas](https://hub.docker.com/r/oct4vyus/lrc-checkedgen) https://img.shields.io/docker/image-size/oct4vyus/lrc-checkedgen/latest?logo=docker&label=Tama?o](https://hub.docker.com/r/oct4vyus/lrc-checkedgen) https://img.shields.io/github/v/release/Oct4vyus/LRC-CheckEdGen?display_name=tag&label=Lanzamiento](https://github.com/Oct4vyus/LRC-CheckEdGen/releases/latest) https://img.shields.io/github/license/Oct4vyus/LRC-CheckEdGen?label=Licencia](https://github.com/Oct4vyus/LRC-CheckEdGen/blob/main/LICENSE)
+
 Esta versión **v1.1.0** representa la evolución y consolidación unificada de lo que anteriormente fue **LRC-Checker v6.2.1**, integrando de forma nativa la gestión de reportes, colas persistentes en SQLite y la comunicación interna con el motor de transcripción **LRCGen**.
 
 ---
@@ -19,28 +21,13 @@ Esta versión **v1.1.0** representa la evolución y consolidación unificada de 
 
 ---
 
-## 🏗️ Arquitectura del Sistema
+## 🏗�?Arquitectura del Sistema
 
 ```text
 [ Navegador Web / LAN ]
-          │
-          ▼ (HTTP :9080)
-┌─────────────────────────────────────────────────────────────┐
-│ contenedor: lrc-checkedgen (v1.1.0)                         │
-│ ─ Orquestador y Servidor Web (Puerto interno 8080)          │
-│ ─ Cola SQLite en /reports/lrcgen_queue.sqlite3              │
-└──────────────────────────────┬──────────────────────────────┘
-                               │ (HTTP interno en lrc_network)
-                               ▼
-┌─────────────────────────────────────────────────────────────┐
-│ contenedor: lrcgen-whisper                                  │
-│ ─ Motor de Transcripción Whisper + Separación UVR           │
-│ ─ Puerto interno 8000                                       │
-└──────────────────────────────┴──────────────────────────────┘
-                               │
-            ┌──────────────────┴──────────────────┐
-            ▼                                     ▼
- [ Bibliotecas de Música ]              [ Directorios /reports y /uploads ]
+          �?          �?(HTTP :9080)
+┌─────────────────────────────────────────────────────────────�?�?contenedor: lrc-checkedgen (v1.1.0)                         �?�?─ Orquestador y Servidor Web (Puerto interno 8080)          �?�?─ Cola SQLite en /reports/lrcgen_queue.sqlite3              �?└──────────────────────────────┬──────────────────────────────�?                               �?(HTTP interno en lrc_network)
+                               �?┌─────────────────────────────────────────────────────────────�?�?contenedor: lrcgen-whisper                                  �?�?─ Motor de Transcripción Whisper + Separación UVR           �?�?─ Puerto interno 8000                                       �?└──────────────────────────────┴──────────────────────────────�?                               �?            ┌──────────────────┴──────────────────�?            �?                                    �? [ Bibliotecas de Música ]              [ Directorios /reports y /uploads ]
  (Montaje rw compartido)               (Persistencia y limpieza de temporales)
 ```
 
@@ -55,7 +42,7 @@ Esta versión **v1.1.0** representa la evolución y consolidación unificada de 
 
 ---
 
-## 🛠️ Requisitos Previos
+## 🛠�?Requisitos Previos
 
 1. **Docker Engine** y **Docker Compose** (o Portainer sobre OpenMediaVault / Linux).
 2. **Red Docker Externa:** Debe crearse una red compartida llamada `lrc_network` para permitir la comunicación privada DNS entre contenedores:
@@ -70,6 +57,7 @@ Esta versión **v1.1.0** representa la evolución y consolidación unificada de 
 ---
 
 ## 📦 Despliegue con Docker Compose (Docker Hub)
+
 
 Ambas imágenes se obtienen directamente de **Docker Hub**. No se requiere Dockerfile ni compilación local.
 
@@ -165,7 +153,7 @@ networks:
 
 ---
 
-## 🖥️ Despliegue en Portainer / OMV (Paso a Paso)
+## 🖥�?Despliegue en Portainer / OMV (Paso a Paso)
 
 1. **Crear la red Docker externa:**
    En la consola SSH de tu servidor OMV:
