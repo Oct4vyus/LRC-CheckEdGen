@@ -1,66 +1,66 @@
-# 🎵 LRC-CheckEdGen
+# ðŸŽµ LRC-CheckEdGen
 
-[ 🇪🇸 Versión en Español ](#-español---lrc-checkedgen) | [ 🇬🇧 English Version ](#-english---lrc-checkedgen)
+[ ðŸ‡ªðŸ‡¸ VersiÃ³n en EspaÃ±ol ](#-espaÃ±ol---lrc-checkedgen) | [ ðŸ‡¬ðŸ‡§ English Version ](#-english---lrc-checkedgen)
 
 ---
 https://img.shields.io/docker/v/oct4vyus/lrc-checkedgen?sort=semver&label=Imagen](https://hub.docker.com/r/oct4vyus/lrc-checkedgen/tags) https://img.shields.io/docker/pulls/oct4vyus/lrc-checkedgen?logo=docker&label=Descargas](https://hub.docker.com/r/oct4vyus/lrc-checkedgen) https://img.shields.io/docker/image-size/oct4vyus/lrc-checkedgen/latest?logo=docker&label=Tama?o](https://hub.docker.com/r/oct4vyus/lrc-checkedgen) https://img.shields.io/github/v/release/Oct4vyus/LRC-CheckEdGen?display_name=tag&label=Lanzamiento](https://github.com/Oct4vyus/LRC-CheckEdGen/releases/latest) https://img.shields.io/github/license/Oct4vyus/LRC-CheckEdGen?label=Licencia](https://github.com/Oct4vyus/LRC-CheckEdGen/blob/main/LICENSE)
-# 🇪🇸 Español - LRC-CheckEdGen
+# ðŸ‡ªðŸ‡¸ EspaÃ±ol - LRC-CheckEdGen
 
-**LRC-CheckEdGen** es una solución integral para la auditoría de bibliotecas musicales, gestión de reportes y generación inteligente de letras sincronizadas (.lrc) basada en inteligencia artificial (OpenAI Whisper + UVR5 Vocal Isolation).
-
----
-
-## 💡 Filosofía y Flujo de Trabajo Modular
-
-LRC-CheckEdGen ha sido concebido para operar bajo un esquema de trabajo de dos fases optimizado para servidores domésticos (NAS / OpenMediaVault):
-
-1. **Fase de Generación Intensiva (LRC-CheckEdGen v1.3.0 + IA):**
-   Despliega la suite completa integrada con el contenedor pesado **LRCGen** (Whisper + UVR5). Se utiliza temporalmente para auditar y generar automáticamente letras sincronizadas en todos aquellos álbumes cuyos archivos .lrc no hayan sido encontrados por Jellyfin o gestores de metadatos.
-2. **Fase de Auditoría y Mantenimiento Ligero (LRC-Checker v6.2.2):**
-   Una vez completada la generación masiva de la biblioteca, se puede detener el backend de IA y volver al contenedor liviano **v6.2.2**. Esto permite mantener una auditoría continua, cuantificación rápida y edición manual con un consumo mínimo de RAM, CPU y VRAM.
+**LRC-CheckEdGen** es una soluciÃ³n integral para la auditorÃ­a de bibliotecas musicales, gestiÃ³n de reportes y generaciÃ³n inteligente de letras sincronizadas (.lrc) basada en inteligencia artificial (OpenAI Whisper + UVR5 Vocal Isolation).
 
 ---
 
-## 📜 Historial de Evolución
+## ðŸ’¡ FilosofÃ­a y Flujo de Trabajo Modular
 
-- **LRC-Checker v6.2.1 / v6.2.2:** Base ligera de auditoría de bibliotecas musicales, escaneo de estados (missing, unsynced, desynced, empty), edición manual con reproductor HTML5 e introducción de la categoría LRC-GEN ([by:LRC Generator]).
-- **LRC-Checker v7.5.1:** Primera integración mediante red interna Docker con el contenedor LRCGen, agregando la cola persistente SQLite y la tarjeta azul de progreso interactivo.
-- **LRC-CheckEdGen v1.1.0:** Unificación oficial de la suite y publicación de imágenes preconstruidas en Docker Hub (oct4vyus/lrc-checkedgen y oct4vyus/lrcgen-container).
-- **LRC-CheckEdGen v1.2.0:** Actualización de identidad visual (nuevo logo 96x96 PNG transparente), filtro explícito de idiomas no aceptados (es/en), estado no_lyrics para temas instrumentales/sin voz y resumen detallado al finalizar álbumes.
-- **LRC-CheckEdGen v1.3.0 (Versión Actual):** Selector interactivo de idioma previo a la generación, optimizaciones masivas en el editor .lrc (virtualización DOM, content-visibility, streaming por bloques /archivo), regeneración agrupada en segundo plano de reportes (REPORT_REFRESH_DELAY_SEC) y compatibilidad con publicaciones forzadas por idioma elegido.
+LRC-CheckEdGen ha sido concebido para operar bajo un esquema de trabajo de dos fases optimizado para servidores domÃ©sticos (NAS / OpenMediaVault):
+
+1. **Fase de GeneraciÃ³n Intensiva (LRC-CheckEdGen v1.3.0 + IA):**
+   Despliega la suite completa integrada con el contenedor pesado **LRCGen** (Whisper + UVR5). Se utiliza temporalmente para auditar y generar automÃ¡ticamente letras sincronizadas en todos aquellos Ã¡lbumes cuyos archivos .lrc no hayan sido encontrados por Jellyfin o gestores de metadatos.
+2. **Fase de AuditorÃ­a y Mantenimiento Ligero (LRC-Checker v6.2.2):**
+   Una vez completada la generaciÃ³n masiva de la biblioteca, se puede detener el backend de IA y volver al contenedor liviano **v6.2.2**. Esto permite mantener una auditorÃ­a continua, cuantificaciÃ³n rÃ¡pida y ediciÃ³n manual con un consumo mÃ­nimo de RAM, CPU y VRAM.
 
 ---
 
-## 🚀 Novedades de v1.2.0 y v1.3.0
+## ðŸ“œ Historial de EvoluciÃ³n
 
-### 🌍 Selector de Idioma por Álbum (v1.3.0)
-- **Cuadro Modal Previo:** Al presionar **GENERAR LRC**, se abre un selector interactivo con opciones predefinidas: **Español (es)**, **Inglés (en)**, **Portugués (pt)**, **Autodetectar (auto)** u **Otro** (con validación estricta de 2 letras ISO-639-1).
-- **Publicación Garantizada:** Al seleccionar un idioma explícito, Whisper omite la autodetección y se desactiva el filtro restrictivo de idioma, publicando directamente el .lrc generado.
-- **Memoria de Selección:** Guarda la última preferencia en el navegador y registra el idioma activo en la tarjeta de seguimiento y en la tabla SQLite (jobs.language).
+- **LRC-Checker v6.2.1 / v6.2.2:** Base ligera de auditorÃ­a de bibliotecas musicales, escaneo de estados (missing, unsynced, desynced, empty), ediciÃ³n manual con reproductor HTML5 e introducciÃ³n de la categorÃ­a LRC-GEN ([by:LRC Generator]).
+- **LRC-Checker v7.5.1:** Primera integraciÃ³n mediante red interna Docker con el contenedor LRCGen, agregando la cola persistente SQLite y la tarjeta azul de progreso interactivo.
+- **LRC-CheckEdGen v1.1.0:** UnificaciÃ³n oficial de la suite y publicaciÃ³n de imÃ¡genes preconstruidas en Docker Hub (oct4vyus/lrc-checkedgen y oct4vyus/lrcgen-container).
+- **LRC-CheckEdGen v1.2.0:** ActualizaciÃ³n de identidad visual (nuevo logo 96x96 PNG transparente), filtro explÃ­cito de idiomas no aceptados (es/en), estado no_lyrics para temas instrumentales/sin voz y resumen detallado al finalizar Ã¡lbumes.
+- **LRC-CheckEdGen v1.3.0 (VersiÃ³n Actual):** Selector interactivo de idioma previo a la generaciÃ³n, optimizaciones masivas en el editor .lrc (virtualizaciÃ³n DOM, content-visibility, streaming por bloques /archivo), regeneraciÃ³n agrupada en segundo plano de reportes (REPORT_REFRESH_DELAY_SEC) y compatibilidad con publicaciones forzadas por idioma elegido.
 
-### �?Optimizaciones de Rendimiento (v1.3.0)
-- **Virtualización del Editor .lrc:** Renderizado unitario de filas, actualización focalizada de la línea activa, delegación de eventos y uso de content-visibility para fluidificar temas extensos.
+---
+
+## ðŸš€ Novedades de v1.2.0 y v1.3.0
+
+### ðŸŒ Selector de Idioma por Ãlbum (v1.3.0)
+- **Cuadro Modal Previo:** Al presionar **GENERAR LRC**, se abre un selector interactivo con opciones predefinidas: **EspaÃ±ol (es)**, **InglÃ©s (en)**, **PortuguÃ©s (pt)**, **Autodetectar (auto)** u **Otro** (con validaciÃ³n estricta de 2 letras ISO-639-1).
+- **PublicaciÃ³n Garantizada:** Al seleccionar un idioma explÃ­cito, Whisper omite la autodetecciÃ³n y se desactiva el filtro restrictivo de idioma, publicando directamente el .lrc generado.
+- **Memoria de SelecciÃ³n:** Guarda la Ãºltima preferencia en el navegador y registra el idioma activo en la tarjeta de seguimiento y en la tabla SQLite (jobs.language).
+
+### ï¿?Optimizaciones de Rendimiento (v1.3.0)
+- **VirtualizaciÃ³n del Editor .lrc:** Renderizado unitario de filas, actualizaciÃ³n focalizada de la lÃ­nea activa, delegaciÃ³n de eventos y uso de content-visibility para fluidificar temas extensos.
 - **Streaming de Audio por Bloques:** El endpoint /archivo transmite el audio de forma fraccionada sin cargar la pista completa en RAM.
-- **Regeneración de Reportes Agrupada:** Pospone y agrupa la reconstrucción de reportes HTML/JSON (~1.0 s por defecto con REPORT_REFRESH_DELAY_SEC) al realizar ediciones múltiples o firmas manuales.
+- **RegeneraciÃ³n de Reportes Agrupada:** Pospone y agrupa la reconstrucciÃ³n de reportes HTML/JSON (~1.0 s por defecto con REPORT_REFRESH_DELAY_SEC) al realizar ediciones mÃºltiples o firmas manuales.
 
-### 🤖 Gestión Inteligente de Pistas (v1.2.0)
-- **Detección de Instrumentales (no_lyrics):** Las pistas donde Whisper no detecta voces o segmentos de tiempo pasan automáticamente al estado no_lyrics ("posible instrumental o sin voz") sin considerarse un error de ejecución.
+### ðŸ¤– GestiÃ³n Inteligente de Pistas (v1.2.0)
+- **DetecciÃ³n de Instrumentales (no_lyrics):** Las pistas donde Whisper no detecta voces o segmentos de tiempo pasan automÃ¡ticamente al estado no_lyrics ("posible instrumental o sin voz") sin considerarse un error de ejecuciÃ³n.
 - **Resumen Completo de Fin de Trabajo:** Informa con exactitud cantidad de letras guardadas, fallos reales, omisiones por idioma y temas instrumentales.
 
 ---
 
-## 🏗�?Arquitectura del Sistema
+## ðŸ—ï¿?Arquitectura del Sistema
 
 ```text
 [ Navegador Web / LAN ]
-          �?          �?(HTTP :9080)
-┌─────────────────────────────────────────────────────────────�?�?Contenedor: lrc-checkedgen (v1.3.0)                         �?�?─ Orquestador y Servidor Web (Puerto interno 8080)          �?�?─ Cola SQLite en /reports/lrcgen_queue.sqlite3              �?└──────────────────────────────┬──────────────────────────────�?                               �?(HTTP interno en lrc_network)
-                               �?┌─────────────────────────────────────────────────────────────�?�?Contenedor: lrcgen-whisper                                  �?�?─ Backend OpenAI Whisper + Separación Vocal UVR5            �?�?─ Puerto interno 8000                                       �?└──────────────────────────────┴──────────────────────────────�?                               �?            ┌──────────────────┴──────────────────�?            �?                                    �? [ Bibliotecas musicales (rw) ]        [ Directorios /reports y /uploads ]
+          ï¿?          ï¿?(HTTP :9080)
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ï¿?ï¿?Contenedor: lrc-checkedgen (v1.3.0)                         ï¿?ï¿?â”€ Orquestador y Servidor Web (Puerto interno 8080)          ï¿?ï¿?â”€ Cola SQLite en /reports/lrcgen_queue.sqlite3              ï¿?â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ï¿?                               ï¿?(HTTP interno en lrc_network)
+                               ï¿?â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ï¿?ï¿?Contenedor: lrcgen-whisper                                  ï¿?ï¿?â”€ Backend OpenAI Whisper + SeparaciÃ³n Vocal UVR5            ï¿?ï¿?â”€ Puerto interno 8000                                       ï¿?â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ï¿?                               ï¿?            â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ï¿?            ï¿?                                    ï¿? [ Bibliotecas musicales (rw) ]        [ Directorios /reports y /uploads ]
 ```
 
 ---
 
-## 🛠�?Requisitos y Despliegue
+## ðŸ› ï¿?Requisitos y Despliegue
 
 ### 1. Preparar la Red Docker Externa
 ```bash
@@ -91,7 +91,7 @@ services:
       - REVIEW_THRESHOLD_SEC=40.0
       - REPORT_REFRESH_DELAY_SEC=1.0
       - SERVER_URL=http://IP-DE-TU-SERVIDOR:9080   # Ajustar a la IP/Hostname de tu servidor
-      - LRCGEN_URL=http://lrcgen-whisper:8000     # Comunicación privada interna
+      - LRCGEN_URL=http://lrcgen-whisper:8000     # ComunicaciÃ³n privada interna
       - LRCGEN_QUEUE_DB=/reports/lrcgen_queue.sqlite3
       - LRCGEN_UPLOADS_DIR=/lrcgen-uploads
     volumes:
@@ -140,38 +140,38 @@ networks:
 
 ---
 
-## 🔍 Variables de Entorno Clave
+## ðŸ” Variables de Entorno Clave
 
-| Variable | Descripción | Valor por Defecto / Ejemplo |
+| Variable | DescripciÃ³n | Valor por Defecto / Ejemplo |
 | :--- | :--- | :--- |
-| SERVER_URL | URL pública de acceso a la interfaz web desde el navegador. | http://IP-DE-TU-SERVIDOR:9080 |
+| SERVER_URL | URL pÃºblica de acceso a la interfaz web desde el navegador. | http://IP-DE-TU-SERVIDOR:9080 |
 | LRCGEN_URL | URL de red privada Docker hacia el motor LRCGen. | http://lrcgen-whisper:8000 |
 | LRCGEN_QUEUE_DB | Ruta persistente a la base SQLite de la cola. | /reports/lrcgen_queue.sqlite3 |
 | LRCGEN_UPLOADS_DIR | Punto de montaje compartido para la limpieza de temporales por UUID. | /lrcgen-uploads |
 | REPORT_REFRESH_DELAY_SEC | Tiempo de espera (s) para agrupar regeneraciones del reporte tras cambios. | 1.0 |
-| WHISPER_MODEL | Modelo de IA para transcripción (tiny, base, small, medium, large). | medium |
+| WHISPER_MODEL | Modelo de IA para transcripciÃ³n (tiny, base, small, medium, large). | medium |
 
 ---
 
-## �?Solución de Problemas Frecuentes
+## ï¿?SoluciÃ³n de Problemas Frecuentes
 
-- **Error de autodetección o letra en idioma incorrecto:**  
-  En v1.3.0, selecciona explícitamente el idioma (es, en, pt, etc.) en el modal antes de enviar el álbum a generar.
-- **El reporte indica que LRCGen no está disponible:**  
+- **Error de autodetecciÃ³n o letra en idioma incorrecto:**  
+  En v1.3.0, selecciona explÃ­citamente el idioma (es, en, pt, etc.) en el modal antes de enviar el Ã¡lbum a generar.
+- **El reporte indica que LRCGen no estÃ¡ disponible:**  
   Verifica que ambos contenedores pertenezcan a la red lrc_network (docker network inspect lrc_network) y que LRCGEN_URL coincida con el container_name de LRCGen (http://lrcgen-whisper:8000).
 - **Permisos de escritura al guardar .lrc:**  
-  Asegúrate de que los volúmenes montados tengan privilegios de lectura y escritura (:rw) para los identificadores PUID/PGID configurados.
+  AsegÃºrate de que los volÃºmenes montados tengan privilegios de lectura y escritura (:rw) para los identificadores PUID/PGID configurados.
 
 ---
 ---
 
-# 🇬🇧 English - LRC-CheckEdGen
+# ðŸ‡¬ðŸ‡§ English - LRC-CheckEdGen
 
 **LRC-CheckEdGen** is an all-in-one solution for music library auditing, report management, and AI-powered synchronized lyrics generation (.lrc) leveraging OpenAI Whisper and UVR5 vocal isolation.
 
 ---
 
-## 💡 Modular Workflow Philosophy
+## ðŸ’¡ Modular Workflow Philosophy
 
 LRC-CheckEdGen is designed to operate in a flexible two-stage workflow tailored for home media servers (NAS / OpenMediaVault):
 
@@ -182,7 +182,7 @@ LRC-CheckEdGen is designed to operate in a flexible two-stage workflow tailored 
 
 ---
 
-## 📜 Version Evolution History
+## ðŸ“œ Version Evolution History
 
 - **LRC-Checker v6.2.1 / v6.2.2:** Lightweight auditing engine for music libraries, scanning states (missing, unsynced, desynced, empty), manual editing via HTML5 player, and introduction of the LRC-GEN category ([by:LRC Generator]).
 - **LRC-Checker v7.5.1:** First internal Docker network integration with LRCGen, introducing SQLite persistent queuing and an interactive blue progress tracker card.
@@ -192,36 +192,36 @@ LRC-CheckEdGen is designed to operate in a flexible two-stage workflow tailored 
 
 ---
 
-## 🚀 Key Features in v1.2.0 & v1.3.0
+## ðŸš€ Key Features in v1.2.0 & v1.3.0
 
-### 🌍 Album Language Selector (v1.3.0)
+### ðŸŒ Album Language Selector (v1.3.0)
 - **Pre-Generation Modal:** Clicking **GENERATE LRC** opens an interactive dialog with options: **Spanish (es)**, **English (en)**, **Portuguese (pt)**, **Autodetect (auto)**, or **Other** (validated 2-letter ISO-639-1 code).
 - **Guaranteed Publishing:** When an explicit language is chosen, Whisper bypasses autodetection and disables language restrictions, directly saving the generated .lrc.
 - **Preference Persistence:** Stores your last selection in the browser and logs the language in the progress card and SQLite database (jobs.language).
 
-### �?Performance Enhancements (v1.3.0)
+### ï¿?Performance Enhancements (v1.3.0)
 - **Editor Virtualization:** Row-by-row rendering, active line targeted DOM updates, event delegation, and content-visibility for smooth navigation on long tracks.
 - **Audio Chunk Streaming:** The /archivo endpoint streams audio progressively without loading full files into system memory.
 - **Batched Report Regeneration:** Delays and batches HTML/JSON report updates (~1.0s default via REPORT_REFRESH_DELAY_SEC) during rapid manual edits or sign-offs.
 
-### 🤖 Smart Track Management (v1.2.0)
+### ðŸ¤– Smart Track Management (v1.2.0)
 - **Instrumental Detection (no_lyrics):** Tracks where Whisper detects no vocal segments are automatically assigned to no_lyrics ("possible instrumental or voiceless track") without marking the job as failed.
 - **Comprehensive Completion Summary:** Displays accurate totals for saved lyrics, actual errors, language skips, and instrumental tracks upon completion.
 
 ---
 
-## 🏗�?System Architecture
+## ðŸ—ï¿?System Architecture
 
 ```text
 [ Web Browser / LAN ]
-          �?          �?(HTTP :9080)
-┌─────────────────────────────────────────────────────────────�?�?Container: lrc-checkedgen (v1.3.0)                          �?�?─ Orchestrator & Web Server (Internal Port 8080)            �?�?─ SQLite Queue at /reports/lrcgen_queue.sqlite3             �?└──────────────────────────────┬──────────────────────────────�?                               �?(Internal HTTP over lrc_network)
-                               �?┌─────────────────────────────────────────────────────────────�?�?Container: lrcgen-whisper                                   �?�?─ OpenAI Whisper Backend + UVR5 Vocal Isolation             �?�?─ Internal Port 8000                                        �?└──────────────────────────────┴──────────────────────────────�?                               �?            ┌──────────────────┴──────────────────�?            �?                                    �? [ Music Libraries (rw) ]              [ /reports & /uploads Directories ]
+          ï¿?          ï¿?(HTTP :9080)
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ï¿?ï¿?Container: lrc-checkedgen (v1.3.0)                          ï¿?ï¿?â”€ Orchestrator & Web Server (Internal Port 8080)            ï¿?ï¿?â”€ SQLite Queue at /reports/lrcgen_queue.sqlite3             ï¿?â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ï¿?                               ï¿?(Internal HTTP over lrc_network)
+                               ï¿?â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ï¿?ï¿?Container: lrcgen-whisper                                   ï¿?ï¿?â”€ OpenAI Whisper Backend + UVR5 Vocal Isolation             ï¿?ï¿?â”€ Internal Port 8000                                        ï¿?â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ï¿?                               ï¿?            â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”´â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ï¿?            ï¿?                                    ï¿? [ Music Libraries (rw) ]              [ /reports & /uploads Directories ]
 ```
 
 ---
 
-## 🛠�?Requirements & Deployment
+## ðŸ› ï¿?Requirements & Deployment
 
 ### 1. Create External Docker Network
 ```bash
@@ -301,7 +301,7 @@ networks:
 
 ---
 
-## 🔍 Key Environment Variables
+## ðŸ” Key Environment Variables
 
 | Variable | Description | Default / Example |
 | :--- | :--- | :--- |
@@ -314,7 +314,7 @@ networks:
 
 ---
 
-## �?Troubleshooting
+## ï¿?Troubleshooting
 
 - **Language autodetection errors or wrong language output:**  
   In v1.3.0, explicitly select the album language (es, en, pt, etc.) in the modal dialog before starting generation.
@@ -325,7 +325,7 @@ networks:
 
 ---
 
-## 📜 License & Credits
+## ðŸ“œ License & Credits
 
 Developed for music library auditing, synchronization, and automated lyrics generation.
 - **Auditing Base:** LRC-Checker Project (v6.2.1 / v6.2.2).
