@@ -2,6 +2,10 @@
 
 [Español](#espanol) | [English](#english)
 
+<p align="center">
+  <img src="Logo/lrc-checkEdGen-Logo2.png" alt="LRC CheckEdGen Logo" width="100">
+</p>
+
 [![Docker Hub version](https://img.shields.io/docker/v/oct4vyus/lrc-checkedgen?sort=semver&label=frontend)](https://hub.docker.com/r/oct4vyus/lrc-checkedgen/tags)
 [![Docker Hub pulls](https://img.shields.io/docker/pulls/oct4vyus/lrc-checkedgen?logo=docker)](https://hub.docker.com/r/oct4vyus/lrc-checkedgen)
 [![Latest release](https://img.shields.io/github/v/release/Oct4vyus/LRC-CheckEdGen?display_name=tag)](https://github.com/Oct4vyus/LRC-CheckEdGen/releases/latest)
