@@ -138,6 +138,15 @@ https://github.com/final-wav/LRCGen
 
 ![Captura de pantalla del informe](https://github.com/Oct4vyus/LRC-CheckEdGen/raw/main/Logo/Reporte-ckeckedgen.png)
 
+## 💖 Financiamiento
+Si querés apoyar el proyecto, podés hacerlo a través de:
+
+
+- [TRON wallet](https://tronscan.org/#/address/TN6foPkepP2qBqKQHsu1T2rDeYgm5uTThN)
+- [BNB Chain wallet](https://bscscan.com/address/0x8916c1b53Cc039672066bc4A297aa048CC7f1ae3)
+
+---
+
 <a id="english"></a>
 ## English
 
@@ -173,9 +182,19 @@ Use the single Compose example in the [Spanish deployment section](#despliegue-c
 
 The [bilingual environment variable reference](#variables-de-entorno) and [troubleshooting guide](#troubleshooting) above apply to both languages. Ensure the Docker network and read/write volume permissions are correct if the backend is unavailable or lyrics cannot be saved.
 
-Due to my server's specifications, the image I built from LRCGen (**oct4vyus/lrcgen-container:1.0.0**) runs only on the CPU, without a dedicated GPU. Even so, the results 
+Due to my server's specifications, the image I built from LRCGen (oct4vyus/lrcgen-container:1.0.0) runs only on the CPU, without a dedicated GPU. Even so, the results 
 are quite good at a medium level, provided the vocals in the track are clear. If you have different hardware configurations, you can find out how to adapt and build your own image at 
 https://github.com/final-wav/LRCGen
+
 ---
 
 **Créditos / Credits:** LRC-CheckEdGen integrates the LRC-Checker auditing project with the LRCGen AI engine, based on OpenAI Whisper and UVR5.
+
+## 💖 Support the project
+If you want to help keep it going, you can support it here:
+
+- [TRON wallet](https://tronscan.org/#/address/TN6foPkepP2qBqKQHsu1T2rDeYgm5uTThN)
+- [BNB Chain wallet](https://bscscan.com/address/0x8916c1b53Cc039672066bc4A297aa048CC7f1ae3)
+
+
+---
