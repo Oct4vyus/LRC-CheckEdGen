@@ -117,6 +117,10 @@ networks:
 | `WHISPER_MODEL` | Modelo de Whisper: `tiny`, `base`, `small`, `medium` o `large`. / Whisper model size. | `medium` |
 | `DEFAULT_LANGUAGE` | Idioma predeterminado para la transcripción. / Default transcription language. | `es` |
 
+Por las características de mi servidor la imagen que yo construí de LRCGen (**oct4vyus/lrcgen-container:1.0.0**), funciona solo con CPU, sin GPU dedicada. Aun así los resultados 
+son bastante buenos a nivel medio, si la voz del tema es nítida. Si tenés otras condiciones de hardware puedes consultar como adaptar y construir tu imagen en 
+https://github.com/final-wav/LRCGen
+
 ### Guía rápida de uso
 
 1. Abre la interfaz en el navegador y revisa el informe de la biblioteca.
@@ -169,6 +173,9 @@ Use the single Compose example in the [Spanish deployment section](#despliegue-c
 
 The [bilingual environment variable reference](#variables-de-entorno) and [troubleshooting guide](#troubleshooting) above apply to both languages. Ensure the Docker network and read/write volume permissions are correct if the backend is unavailable or lyrics cannot be saved.
 
+Due to my server's specifications, the image I built from LRCGen (**oct4vyus/lrcgen-container:1.0.0**) runs only on the CPU, without a dedicated GPU. Even so, the results 
+are quite good at a medium level, provided the vocals in the track are clear. If you have different hardware configurations, you can find out how to adapt and build your own image at 
+https://github.com/final-wav/LRCGen
 ---
 
 **Créditos / Credits:** LRC-CheckEdGen integrates the LRC-Checker auditing project with the LRCGen AI engine, based on OpenAI Whisper and UVR5.
