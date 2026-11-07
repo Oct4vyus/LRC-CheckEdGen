@@ -127,6 +127,9 @@ networks:
 - **LRCGen no está disponible / LRCGen is unavailable:** comprueba que ambos contenedores estén en `lrc_network` y que `LRCGEN_URL` apunte a `http://lrcgen-whisper:8000` / check that both containers are on `lrc_network` and `LRCGEN_URL` points to `http://lrcgen-whisper:8000`.
 - **No se pueden guardar archivos `.lrc` / Cannot save `.lrc` files:** verifica los permisos de lectura y escritura para `PUID` y `PGID` / check read/write permissions for `PUID` and `PGID`.
 
+
+![Captura de pantalla del informe](https://github.com/Oct4vyus/LRC-CheckEdGen/raw/main/Logo/Reporte-ckeckedgen.png)
+
 <a id="english"></a>
 ## English
 
