@@ -138,6 +138,10 @@ https://github.com/final-wav/LRCGen
 
 ![Captura de pantalla del informe](https://github.com/Oct4vyus/LRC-CheckEdGen/raw/main/Logo/Reporte-ckeckedgen.png)
 
+## Agradecimientos
+Este proyecto integra funcionalidades del proyecto LRCGen.
+Muchas gracias a Hakan D. (@final-wav) por su excelente trabajo y por compartirlo con la comunidad.
+
 ## 💖 Financiamiento
 Si querés apoyar el proyecto, podés hacerlo a través de:
 
@@ -189,6 +193,11 @@ https://github.com/final-wav/LRCGen
 ---
 
 **Créditos / Credits:** LRC-CheckEdGen integrates the LRC-Checker auditing project with the LRCGen AI engine, based on OpenAI Whisper and UVR5.
+
+## Acknowledgements
+
+This project integrates and builds upon ideas from LRCGen.
+Many thanks to Hakan D. (@final-wav) for creating and maintaining it.
 
 ## 💖 Support the project
 If you want to help keep it going, you can support it here:
